@@ -1,0 +1,94 @@
+import h5py
+import numpy as np
+
+#opening the file
+thefile = 'myfile.hdf5'
+
+#writing the file
+hf = h5py.File(thefile,'w')
+
+#Header
+head = hf.create_dataset('header',(1,))
+head.attrs[u'volume']       = 1000.
+head.attrs[u'units_volume'] = u'(Mpc/h)**3'
+
+#Create the edges and mid points of bins
+import numpy as np
+step = 1
+edges = np.array(np.arange(9.,16.,step))
+mhist = edges[1:]-0.5*step
+
+#Create some random (integer) positions
+pos = np.random.randint(10,size=(3,100))
+
+#Storing data
+hfdat = hf.create_group('data')
+
+#Adding label to generated data
+hfdat.create_dataset('mass',data=mhist)
+hfdat['mass'].dims[0].label = 'Mass (Msun/h)'
+
+hfdat.create_dataset('pos',data=pos)
+hfdat['pos'].dims[0].label = 'x,y,z (Mpc/h)'
+
+#Close the output file
+hf.close()
+
+#Checking content of file
+h5ls myfile.hdf5/data
+
+#Reading file
+f = h5py.File(thefile,'f')
+
+header = f['Header']
+data = f['Data']
+
+print(list(header.attrs.items()))
+
+boxsize = header.attrs['volume']**(1/3)
+
+mass = data['mass'][:]
+pos = data['pos'][:]
+
+mass5 = f['data/mass'][5:10]
+
+print([dim.label for dim in data['pos'].dims])
+print(data['pos'].dims[0].label)
+
+f.close()
+
+#creating file
+f = h5py.File('myfile.hdf5','w')
+dset = f.create_dataset("mydataset",(100,),dtype='i')
+
+#open file for reading
+f = h5py.File('myfile.hdf5','r')
+#show keys file
+print(list(f.keys()))
+#examine dataset object
+dset = f['mydataset']
+print(dset.shape) #dataset shape
+print(dset.dtype) #dataset data type
+print(dset.name) #dataset name
+print(f.name) #root group name
+
+#writing data
+dset[...] = np.arange(100)
+print(dset[0])
+print(dset[10])
+print(dset[0:100:10])
+
+#creating group
+f = h5py.File('myfile.hdf5','a')
+grp = f.create_group("subgroup")
+#creating dataset in new group
+dset2 = grp.create_dataset("another_dataset",(50,),dtype='f')
+print(dset2.name)
+
+#creating dataset (not intermediate group)
+dset3 = f.create_dataset('subgroup2/dataset_three',(10,),dtype='i')
+print(dset3.name)
+
+print(list(f.keys())) #print objects names directly attached to the group
+print(list(f.values())) #print objects contained in the gropu
+print(list(f.items())) #print (name,value) for objects directly attached to the group
