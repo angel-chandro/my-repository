@@ -1,0 +1,142 @@
+#
+# Parameter file for the merger tree codes
+#
+
+#
+# SIMULATION PARAMETERS
+# ---------------------
+#
+
+# Simulation directory
+basedir        = /home/chandro/output/SUBFIND # not affect Build_Trees execution
+#/gpfs/data/violeta/nifty/test.62.5_dm/SUBFIND
+subtab_path    = none
+subids_path    = none
+id_size        = 8
+float_size     = 4
+subfind_format = ROCKSTAR # change format
+
+# Location of HBT/nIFTy files, if any
+hbt_path = none
+nifty_path = none
+ROCKSTAR_path = /home/chandro/ROCKSTAR_parents # add ROCKSTAR_path
+desc_path  = none
+VELOCIraptor_path = none 
+#/gpfs/data/violeta/nifty/test.62.5_dm/SUBFIND
+
+# Added parameters to be able to execute DHalos
+desc_file = /home/chandro/ROCKSTAR_parents/descendants.hdf5 # not neccesary at all
+hydrorun = .false
+
+# Range of snapshots to use
+# Ignored if snapnum_file is not "none"
+ifirst = 30
+ilast  = 32
+
+# File with snapshot renumbering info
+# Set to "none" to disable.
+snapnum_file = none
+
+# Particle mass [Msun/h]
+mpart = 9.260019753e09
+
+use_total_mass = .false.
+
+
+# Box size [Mpc/h]
+lbox = 1000
+
+# Merger tree output directory
+treedir = /home/chandro/output/Dhalos_ROCKSTAR_test
+#/gpfs/data/violeta/nifty/test.nifty_dhalos/
+
+# Cosmological parameters
+omega0  = 0.308900
+lambda0 = 0.691100
+h0      = 0.677400
+omegab  = 0.02230
+
+# Maximum number of processors to do simultaneous I/O
+nproc_io = 128
+
+# Location of snapshots (TODO: make this work for Eagle outputs!)
+# Only needed to find particles for type 2 Galform galaxies
+snapshot_names  = snapdir_XXX/snap_coco_big_run_1-groupordered_XXX
+snapshot_format = BINARY
+
+#
+# MERGER TREE FILE PARAMETERS
+# ---------------------------
+
+# Merger tree output directory
+treedir = ./trees/
+
+# Base name for tree files
+tree_basename = tree_test
+
+# Number of merger tree files to produce
+ntreefile = 64
+
+#
+# MERGER TREE ALGORITHM PARAMETERS
+# --------------------------------
+#
+
+# Parameters specific to Find_Descendants
+# ---------------------------------------
+
+# Minimum number of particles to trace for each subhalo
+nlink_min       = 10
+nlink_max       = 100
+
+# Minimum fraction of particles to trace for each subhalo
+flink          = 0.1
+
+# Max. no. of extra snapshots we look ahead for descendants
+nsteptrace     = 5
+
+# Max. memory to use in Mb per process (this is only approximately obeyed!)
+max_memory = 4000
+
+# Location for temp files
+scratch_dir = ./tmp/
+
+# Parameters specific to Build_Trees
+# ----------------------------------
+
+# A subhalo will be considered a separate halo if it retains this
+# fraction of the mass it had last time it was a separate FoF halo
+mfrac = 0.75
+
+# Subhalos outside rfactor times the virial radius are also considered
+# to be separate halos
+rfactor = 1.0
+
+# List of snapshot redshifts
+zfile = /home/chandro/output/Dhalos_ROCKSTAR_test/redshift_list.txt
+#/gpfs/data/violeta/nifty/test.62.5_dm/snapidzred.txt
+
+# Whether subhalos which demerge should be remerged
+remerge = .true.
+
+# Whether to add interpolated subhalos if descendant is >1 snapshot later
+interpolate = .true.
+
+# Always need this
+separate_branches = .true.
+
+# Settings for WDM runs
+wdm_file        = none
+
+# Parameters specific to trace_particles
+# --------------------------------------
+
+# Where to put the output
+trace_dir = ./trees/particle_lists
+
+# Whether to read all snapshot files at once or do them one at a time
+read_all_files = .false.
+
+# Where to write subhalo membership files
+# (not needed for Eagle because snapshots contain this info)
+subnrdir = ./subnr/
