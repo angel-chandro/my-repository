@@ -25,7 +25,7 @@ VELOCIraptor_path = none
 #/gpfs/data/violeta/nifty/test.62.5_dm/SUBFIND
 
 # Added parameters to be able to execute DHalos
-desc_file = /home/chandro/ROCKSTAR_parents/descendants.hdf5 # not neccesary at all
+desc_file = none # not neccesary at all
 hydrorun = .false
 
 # Range of snapshots to use
