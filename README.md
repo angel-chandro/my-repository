@@ -11,3 +11,5 @@
 * **ROCKSTAR_pid_upid_test.py**: python file that allows to calculate PID-UPID ratio from ConsistentTrees halo catalogues.
 
 * **Tree_Shark.py**, **Tree_Shark_mod.py**: Guillermo's file that reads ConsistentTrees halo trees and a modification that works correctly.
+
+* **descendants_hdf5.py**, **descendants.py**: python files to create .hdf5 (as VELOCIraptor_reader.f90 format) and .txt descendants halo catalogue, altough in the end ROCKSTAR doesn't need descendants file.
